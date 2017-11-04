@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style>
+	body {
+    font-size: 75%;
+    font-family:"Segoe UI", Verdana, Helvetica, Sans-Serif;
+}
+#body {
+    clear: both;
+    margin: 0 auto;
+    max-width: 534px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 0.75em;
+    border: 0 none;
+    margin-top:35px;
+}
+#body td {
+    padding:15px 30px 15px 10px;
+}
+#body tr td:nth-child(1) {
+    font-weight:bold;
+}
+#address {
+    width:400px;
+}
+	</style>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+<script src="jquery-3.2.1.js"></script>
+	<script>
+	var geocodingAPI = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/335315?apikey=jdkzfZq9UnNUChEGuDp117FuAtlwboCJ%20&language=en-us&details=false&metric=false";
+
+$.getJSON(geocodingAPI, function (json) {
+
+    // Set the variables from the results array
+    var address = json.Headline.Text;
+  //  console.log('Address : ', address);
+    
+   var latitude = json.DailyForecasts[0].Date;
+
+  $('#address').text(address);
+    $('#latitude').text(latitude);
+
+
+});
+	</script>
+</head>
+<body>
+
+
+<div id="body">
+
+<h1></h1>
+
+    <hr/>
+    <table border="1">
+        <tr>
+            <td>Url:</td>
+            <td><a class="myLink">The Google Geocoding API</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td id="address"></td>
+        </tr>
+
+    </table>
+</div>
+</body>
