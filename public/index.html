@@ -43,7 +43,7 @@ $.getJSON(geocodingAPI, function (json) {
     // Set the variables from the results array
     var address = json.Headline.Text;
   //  console.log('Address : ', address);
-    
+
    var latitude = json.DailyForecasts[0].Date;
 
   $('#address').text(address);
@@ -52,6 +52,42 @@ $.getJSON(geocodingAPI, function (json) {
 
 });
 	</script>
+
+<script>
+// watson code
+
+//opens a connection with the service. The call to the /v1/synthesize method
+//passes the voice and watson-token query parameters, the former to direct
+//the service to use the US English Allison voice. Once the connection is established,
+//the event listeners (onOpen, onClose, and so on) are defined to respond to events from the service.
+
+var voice = 'en-US_AllisonVoice';
+var token = I8h7aUlAMDf0NvurCnR3iBE%2FY08POejYMn8vJ2l9wo0d4WEYKrgqeYp6zbyLjef%2BDxyfEpNHmBZL%2FeY52YY9HEg2V%2Baj7g51b%2Bor6CULyHgMgmiuvCuieLAc2bp5LFeN4%2F3sl%2FzdoPAsLsPhvV5H5Pqen18Y4R5FfStqZ8rLdsJMMSj464wikh%2BMaPy5JQumh0tr3ARvtUpzzM5kg5Sa%2BVDlRP4D6qI9EZYI1ts%2Bvppo3O%2BPxBx8GBeA7bpwVCQaqZV%2BVL7wOaPWk6%2BN6%2B1Tlozj2PcPHpbfzRYCt1m%2B2H0hyj1T7YzvwFyTrdRHS%2Fmd8Xp7xTHSuyTPKfdo%2B6B0lS3tWv2e4FTuuVg%2BdLlyroKJz5pXg9BupR%2BxSU2CyYiKHSxFVGTqoFx%2FfdG2XKWwwT5haVQ4thP7o9NcQfOBvGvCc69zNtIWu9FNZVKgYI0JwvooKgnnzaBnxYnEdOh7LVFv3pETjPW9MxQxm1EOg7XAJyMczIMggFGodiNlOH5mo5it7q4iIbJqOO5GnGDGB5nHLZem4pKTuGBS%2FP4UK7sZm%2BMNZe%2BHBX1OHml7nrsTsdut7hxK9oc0Mja8rfdoLcIyEaNZFsOstBGnmJV23lLMzU8hPjyQRqf9L4pptFIUtx%2B2p%2B%2FzQP2wikEfTHz7aHzBsxKV5BV4w%2BgA3h4a%2F82AsMBL6lkuRUlgTRCGrXTjfq38id4f%2FUjiri6rPpHqBjXq7JVNqzrcCqHTMpLev8Gq8b6BcmtYUfEFafUcOJUpXwFSyB9g1Bvs%2FGv3yBuSEg2ldtG8FCptjEn0vqxGPpcp%2BY9XlKmdv32xR8W%2FpN4D%2Bvwn1NqZJ0FJmm0tDSppcuoI%2FjK61mLv2ITUzRYA%2FFu97fBvGh0Lb7p3wVZOlt42K7%2FXFwvJWDi4MHtalGVnO1APS8sKf2WemyY0qyIiQDVE2j1ncbKZ%2FjzESQNwDwPatW9fMtA%2BIDvQVsGWM1PQ7UxqDoYlspv4Lc%2BDNSCWj2Q%3D;
+var wsURI = 'wss://stream.watsonplatform.net/text-to-speech/api/v1/synthesize'
+  + '?voice=' + voice
+  + '&watson-token=' + token;
+var websocket = new WebSocket(wsURI);
+websocket.onopen = function(evt) { onOpen(evt) };
+websocket.onclose = function(evt) { onClose(evt) };
+websocket.onmessage = function(evt) { onMessage(evt) };
+websocket.onerror = function(evt) { onError(evt) };;
+
+
+// passes a simple Hello world message as the input text and requests
+//the default format for the audio. The calls are included in the onOpen
+//function that is defined for the client to ensure that they are sent
+// only after the connection is established.
+function onOpen(evt) {
+  var message = {
+    text: 'Hello world',
+    accept: '*/*'
+  };
+  websocket.send(JSON.stringify(message));
+}
+</script>
+
+
+
 </head>
 <body>
 
